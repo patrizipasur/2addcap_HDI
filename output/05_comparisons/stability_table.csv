@@ -1,0 +1,5 @@
+"Group","gm_vs_am","gm_vs_ch_const","gm_vs_ch_corr","ch_const_vs_ch_corr"
+"Very high human development",1,0.959459459459459,0.959459459459459,1
+"High human development",0.98,0.88,0.88,1
+"Medium human development",0.953488372093023,0.930232558139535,0.906976744186046,0.976744186046512
+"Low human development",0.961538461538462,1,0.961538461538462,0.961538461538462

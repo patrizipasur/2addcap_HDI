@@ -1,0 +1,23 @@
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj.user
+
+# renv local library/cache
+renv/library/
+renv/staging/
+renv/sandbox/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+
+# Do not accidentally commit private or local data files
+# Remove this rule if the public-release data are explicitly intended
+# to be version-controlled.
+# data/private/
