@@ -13,4 +13,4 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
 Files:
-  OpenFilesOnLoad: 00_run_all
+  OpenFilesOnLoad: 00_run_all.R
