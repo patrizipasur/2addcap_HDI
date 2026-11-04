@@ -16,13 +16,14 @@
 #      component indices.
 #   5. Save the normalized data for subsequent analyses.
 #
-# Manuscript outputs:
+# Outputs:
 #   This script generates intermediate data used by the
 #   statistical analyses and composite-index calculations.
+#   output/02_normalization/components_normalized.csv
 # ============================================================
 
 # ------------------------------------------------------------
-# 1. LOAD RAW DATA
+# 1. LOAD RAW DATA AND DIRECTORY TO SAVE RESULTS
 # ------------------------------------------------------------
 
 file_path <- "data/HDI25.xlsx"
@@ -30,6 +31,8 @@ file_path <- "data/HDI25.xlsx"
 data <- read_excel(file_path)
 
 data <- select(data, HDI, Country, LEB, EYS, MYS, GNI)
+
+out_dir <- "output/02_normalization"
 
 # ------------------------------------------------------------
 # 2. DEFINE UN GOALPOSTS
@@ -103,19 +106,13 @@ components <- data %>%
 # 5. SAVE INTERMEDIATE DATA
 # ------------------------------------------------------------
 # The CSV file provides a human-readable copy of the normalized
-# dataset. The RDS file is used directly by the next stages of
-# the reproducibility pipeline.
+# dataset.
 # ------------------------------------------------------------
 
 write.csv(
-  data,
-  "output/02_normalization/data_normalized.csv",
-  row.names = FALSE
-)
-
-saveRDS(
   components,
-  "output/02_normalization/data_normalized.rds"
+  file.path(out_dir, "components_normalized.csv"),
+  row.names = FALSE
 )
 
 message("HDI normalization completed successfully.")

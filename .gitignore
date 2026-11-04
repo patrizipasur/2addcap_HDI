@@ -1,23 +1,35 @@
-# R / RStudio
+#R / RStudio
+
 .Rhistory
 .RData
+.Ruserdata
 .Rproj.user/
 *.Rproj.user
 
-# renv local library/cache
+#renv local library/cache
+
 renv/library/
 renv/staging/
 renv/sandbox/
 
-# OS files
+#OS files
+
 .DS_Store
 Thumbs.db
 
-# Temporary files
+#Temporary files
+
 *.tmp
 *.log
 
-# Do not accidentally commit private or local data files
-# Remove this rule if the public-release data are explicitly intended
-# to be version-controlled.
-# data/private/
+#Private or sensitive data
+
+#Uncomment if these folders contain data that should not be public:
+
+data/private/
+
+data/confidential/
+
+#Posit AI local files
+
+.positai/

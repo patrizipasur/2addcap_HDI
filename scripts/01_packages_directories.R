@@ -29,7 +29,11 @@ required <- c(
   "modelsummary",
   "MVN",
   "mvnTest",
-  "patchwork"
+  "patchwork",
+  "ggplot2",
+  "scales",
+  "forcats",
+  "tidyr"
 )
 
 missing <- required[!vapply(required, requireNamespace, logical(1), quietly = TRUE)]
@@ -62,6 +66,9 @@ library(modelsummary)
 library(MVN)
 library(mvnTest)
 library(patchwork)
+library(forcats)
+library(tidyr)
+library(scales)
 
 # ------------------------------------------------------------
 # Create output directories.
@@ -74,7 +81,9 @@ output_dirs <- c(
   "output/02_normalization",
   "output/03_analysis_dim",
   "output/04_composite_indices",
-  "output/05_comparisons"
+  "output/05_comparisons",
+  "output/06a_sensitivity_orness",
+  "output/06b_sensitivity_comparison_gm"
 )
 
 invisible(lapply(

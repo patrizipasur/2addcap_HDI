@@ -1,0 +1,194 @@
+"Country","geometric_mean","ch_const_geom","ch_corr_geom","ch_const_mid","ch_corr_mid"
+"Iceland",1,1,1,1,1
+"Norway",3,2,2,2,2
+"Switzerland",2,3,3,3,3
+"Denmark",4,5,5,5,5
+"Germany",6,4,4,4,4
+"Sweden",5,6,6,6,6
+"Australia",7,7,7,7,7
+"Hong Kong, China (SAR)",8,12,12,12,12
+"Netherlands",9,9,8,9,8
+"Belgium",10,11,11,11,11
+"Ireland",11,14,14,14,14
+"Finland",12,10,10,10,10
+"Singapore",13,16,16,16,16
+"United Kingdom",14,8,9,8,9
+"United Arab Emirates",15,19,19,19,19
+"Canada",16,15,15,15,15
+"Liechtenstein",19,21,21,21,21
+"New Zealand",17,13,13,13,13
+"United States",18,18,17,18,17
+"Korea (Republic of)",20,20,20,20,20
+"Slovenia",21,17,18,17,18
+"Austria",22,22,22,22,22
+"Japan",23,26,27,27,27
+"Malta",24,24,24,24,24
+"Luxembourg",25,33,33,33,33
+"France",26,30,30,30,30
+"Israel",27,25,26,26,26
+"Spain",28,31,31,31,31
+"Czechia",30,23,23,23,23
+"Italy",31,34,34,34,34
+"San Marino",29,38,38,38,38
+"Andorra",32,35,37,37,37
+"Cyprus",33,29,29,29,29
+"Greece",34,32,32,32,32
+"Poland",35,27,25,25,25
+"Estonia",36,28,28,28,28
+"Saudi Arabia",37,36,35,35,35
+"Bahrain",38,41,41,41,41
+"Lithuania",39,37,36,36,36
+"Portugal",40,43,43,43,43
+"Croatia",41,40,40,40,40
+"Latvia",42,39,39,39,39
+"Qatar",43,49,49,49,49
+"Slovakia",44,42,42,42,42
+"Chile",45,44,44,44,44
+"Hungary",46,45,45,45,45
+"Argentina",47,46,46,47,46
+"Montenegro",48,47,47,46,47
+"Uruguay",49,48,48,48,48
+"Oman",50,53,53,53,53
+"Türkiye",51,50,50,50,50
+"Kuwait",52,60,60,60,60
+"Antigua and Barbuda",53,51,51,51,51
+"Seychelles",54,52,52,52,52
+"Bulgaria",55,54,54,54,54
+"Romania",56,58,58,58,58
+"Georgia",57,55,55,55,55
+"Saint Kitts and Nevis",58,56,56,56,56
+"Panama",59,62,63,63,63
+"Brunei Darussalam",60,68,66,69,66
+"Kazakhstan",61,57,57,57,57
+"Costa Rica",63,64,64,64,64
+"Serbia",62,59,59,59,59
+"Russian Federation",64,63,62,62,62
+"Belarus",65,61,61,61,61
+"Bahamas",66,65,65,65,65
+"Malaysia",67,67,69,68,69
+"North Macedonia",68,70,70,70,70
+"Armenia",69,66,67,66,67
+"Barbados",70,69,68,67,68
+"Albania",71,74,74,74,74
+"Trinidad and Tobago",72,71,71,71,71
+"Mauritius",73,73,73,73,73
+"Bosnia and Herzegovina",74,75,75,75,75
+"Iran (Islamic Republic of)",75,76,77,77,77
+"Saint Vincent and the Grenadines",77,72,72,72,72
+"Thailand",76,78,78,78,78
+"China",78,83,84,83,83
+"Peru",79,80,80,80,80
+"Grenada",80,79,79,79,79
+"Azerbaijan",82,82,82,82,82
+"Mexico",81,84,83,84,84
+"Colombia",83,87,87,87,87
+"Brazil",84,86,86,86,86
+"Palau",85,81,81,81,81
+"Moldova (Republic of)",86,77,76,76,76
+"Ukraine",87,85,85,85,85
+"Ecuador",88,91,92,92,92
+"Dominican Republic",91,89,89,89,89
+"Guyana",90,95,95,96,95
+"Sri Lanka",89,90,90,90,90
+"Tonga",92,94,94,95,94
+"Maldives",94,105,107,105,107
+"Viet Nam",93,93,93,93,93
+"Turkmenistan",95,88,88,88,88
+"Algeria",96,97,97,97,97
+"Cuba",97,99,99,101,99
+"Dominica",98,92,91,91,91
+"Paraguay",99,98,98,98,98
+"Egypt",100,96,96,94,96
+"Jordan",101,103,103,103,103
+"Lebanon",102,106,108,106,108
+"Saint Lucia",103,104,104,104,104
+"Mongolia",104,100,101,100,101
+"Tunisia",105,109,110,109,109
+"South Africa",106,101,100,99,100
+"Uzbekistan",107,107,106,108,105
+"Bolivia (Plurinational State of)",108,108,105,107,106
+"Gabon",109,110,109,111,110
+"Marshall Islands",110,114,114,114,114
+"Botswana",111,111,111,110,111
+"Fiji",112,102,102,102,102
+"Indonesia",113,112,112,112,112
+"Suriname",114,119,120,119,119
+"Belize",116,118,118,118,118
+"Libya",115,116,117,116,117
+"Jamaica",118,115,115,115,115
+"Kyrgyzstan",119,117,116,117,116
+"Philippines",117,113,113,113,113
+"Morocco",120,124,124,124,124
+"Venezuela (Bolivarian Republic of)",121,121,121,121,121
+"Samoa",122,122,122,122,122
+"Nicaragua",123,125,126,125,126
+"Nauru",124,123,123,123,123
+"Bhutan",125,127,129,128,129
+"Eswatini (Kingdom of)",126,120,119,120,120
+"Iraq",127,129,130,130,130
+"Tajikistan",128,128,127,127,127
+"Tuvalu",129,126,125,126,125
+"Bangladesh",131,133,133,133,133
+"India",130,132,132,132,132
+"El Salvador",132,134,134,134,134
+"Equatorial Guinea",133,131,131,131,131
+"Palestine, State of",134,130,128,129,128
+"Cabo Verde",135,137,138,138,138
+"Namibia",136,135,135,135,135
+"Guatemala",137,138,139,139,139
+"Congo",138,136,136,136,136
+"Honduras",139,142,142,142,142
+"Kiribati",140,139,137,137,137
+"Sao Tome and Principe",141,143,143,143,143
+"Timor-Leste",142,141,141,141,141
+"Ghana",144,144,144,144,144
+"Kenya",143,140,140,140,140
+"Nepal",145,147,147,147,147
+"Vanuatu",146,148,148,148,148
+"Lao People's Democratic Republic",147,150,151,150,151
+"Angola",148,145,145,145,145
+"Micronesia (Federated States of)",149,146,146,146,146
+"Myanmar",150,149,150,149,149
+"Cambodia",151,154,154,154,154
+"Comoros",152,152,152,152,152
+"Zimbabwe",153,151,149,151,150
+"Zambia",154,153,153,153,153
+"Cameroon",155,155,155,155,155
+"Solomon Islands",156,157,159,158,159
+"Côte d'Ivoire",158,156,156,156,156
+"Uganda",157,158,157,157,157
+"Rwanda",159,159,161,159,161
+"Papua New Guinea",160,162,162,162,162
+"Togo",161,160,158,160,158
+"Syrian Arab Republic",162,166,166,166,166
+"Mauritania",163,165,165,165,165
+"Nigeria",164,161,160,161,160
+"Tanzania (United Republic of)",165,167,167,167,167
+"Haiti",166,164,164,164,164
+"Lesotho",167,163,163,163,163
+"Pakistan",168,168,168,168,168
+"Senegal",169,170,170,170,170
+"Gambia",170,171,171,171,171
+"Congo (Democratic Republic of the)",171,169,169,169,169
+"Malawi",172,173,173,173,173
+"Benin",173,172,172,172,172
+"Guinea-Bissau",174,174,175,174,175
+"Djibouti",175,175,176,176,176
+"Sudan",176,177,177,177,177
+"Liberia",177,176,174,175,174
+"Eritrea",178,179,179,179,179
+"Guinea",179,178,178,178,178
+"Ethiopia",180,182,182,182,182
+"Afghanistan",181,180,181,181,181
+"Mozambique",182,181,180,180,180
+"Madagascar",183,183,183,183,183
+"Yemen",184,185,185,185,185
+"Sierra Leone",185,184,184,184,184
+"Burkina Faso",186,186,186,186,186
+"Burundi",187,187,187,187,187
+"Mali",188,189,189,189,189
+"Niger",189,191,191,191,191
+"Chad",190,188,188,188,188
+"Central African Republic",191,190,190,190,190
+"Somalia",192,192,192,192,192
+"South Sudan",193,193,193,193,193

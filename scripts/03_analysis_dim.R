@@ -5,8 +5,6 @@
 #   Describe the three HDI dimension indicators and assess their
 #   univariate and multivariate distributional properties.
 #
-# Input:
-#   output/02_normalization/data_normalized.rds
 #
 # Main analyses:
 #   1. Descriptive statistics.
@@ -17,33 +15,33 @@
 #   6. Selection of Pearson or Spearman correlation according
 #      to the multivariate-normality assessment.
 #
-# Manuscript outputs:
-#   Table 5  - summary statistics and Shapiro-Wilk tests.
-#   Table 6  - multivariate normality/correlation analysis.
-#
-# Generated files are written to output/03_analysis_dim/.
+# Outputs:
+#   output/03_analysis_dim/scatterplot.png
+#   output/03_analysis_dim/histograms.png
+#   output/03_analysis_dim/sum_sw_normality.tex
+#   output/03_analysis_dim/mardia_mnormality.tex
+#   output/03_analysis_dim/hz_normality.tex
+#   output/05_comparisons/spearman_correlations.tex
 # ============================================================
 
 # ------------------------------------------------------------
-# LOAD NORMALIZED COMPONENTS
+# NORMALIZED COMPONENTS AND DIRECTORY TO SAVE RESULTS
 # ------------------------------------------------------------
-
-components <- readRDS("output/02_normalization/data_normalized.rds")
-
 vars <- c("lei", "ei", "gnii")
-data <- components[, vars]
+dimensions <- components[, vars]
 
+out_dir <- "output/03_analysis_dim"
 # ------------------------------------------------------------
 # DESCRIPTIVE STATISTICS
 # ------------------------------------------------------------
-# These statistics form the descriptive part of manuscript
-# Table 5.
-# ------------------------------------------------------------
+# ============================================================
+# MANUSCRIPT OUTPUT: TABLE 5, COLUMNS 2, 3, 4 AND 5
+# ============================================================
 
-mean_vals <- round(colMeans(data, na.rm = TRUE), 4)
-sd_vals   <- round(apply(data, 2, sd, na.rm = TRUE), 4)
-min_vals  <- round(apply(data, 2, min, na.rm = TRUE), 4)
-max_vals  <- round(apply(data, 2, max, na.rm = TRUE), 4)
+mean_vals <- round(colMeans(dimensions, na.rm = TRUE), 4)
+sd_vals   <- round(apply(dimensions, 2, sd, na.rm = TRUE), 4)
+min_vals  <- round(apply(dimensions, 2, min, na.rm = TRUE), 4)
+max_vals  <- round(apply(dimensions, 2, max, na.rm = TRUE), 4)
 
 desc <- data.frame(
   Mean = mean_vals,
@@ -61,7 +59,7 @@ desc <- data.frame(
 # ------------------------------------------------------------
 
 png(
-  "output/03_analysis_dim/scatterplot.png",
+  file.path(out_dir, "scatterplot.png"),
   width = 1200,
   height = 800
 )
@@ -72,7 +70,7 @@ pairs(
 dev.off()
 
 png(
-  "output/03_analysis_dim/histograms.png",
+  file.path(out_dir, "histograms.png"),
   width = 1200,
   height = 800
 )
@@ -98,18 +96,15 @@ normality_flag <- function(x, alpha = 0.001) {
   if (p >= alpha) p else "<0.001"
 }
 
-SWpvalue <- sapply(data, normality_flag)
+SWpvalue <- sapply(dimensions, normality_flag)
 
 table1 <- cbind(desc, SWpvalue)
 
 # ============================================================
-# MANUSCRIPT OUTPUT: TABLE 5
+# MANUSCRIPT OUTPUT: TABLE 5, COLUMN 6
 # ============================================================
 # Summary statistics and Shapiro-Wilk normality tests for the
 # three HDI dimension indicators.
-#
-# Generated file:
-#   output/03_analysis_dim/sum_sw_normality.tex
 # ============================================================
 
 latex_table <- xtable(
@@ -120,7 +115,7 @@ latex_table <- xtable(
 
 print(
   latex_table,
-  file = "output/03_analysis_dim/sum_sw_normality.tex",
+  file = file.path(out_dir, "sum_sw_normality.tex"),
   booktabs = TRUE
 )
 
@@ -132,23 +127,19 @@ print(
 # whether Pearson or Spearman correlations are reported.
 # ------------------------------------------------------------
 
-data_mvn <- components[, vars]
+#dimensions <-components[, vars]
 
 mardia_results <- mvn(
-  data = data_mvn,
+  data = dimensions,
   mvn = "mardia"
 )
 
 mardia_table <- mardia_results[["multivariate_normality"]]
-
 # ============================================================
 # MANUSCRIPT OUTPUT: TABLE 6
 # ============================================================
 # Multivariate-normality results and the correlation measure
 # used in the subsequent interaction analysis.
-#
-# Generated file:
-#   output/03_analysis_dim/mardia_mnormality.tex
 # ============================================================
 
 print(
@@ -157,7 +148,7 @@ print(
     caption = "Mardia multivariate normality test",
     label = "tab:mardia_test"
   ),
-  file = "output/03_analysis_dim/mardia_mnormality.tex",
+  file = file.path(out_dir, "mardia_mnormality.tex"),
   include.rownames = FALSE,
   booktabs = TRUE
 )
@@ -172,8 +163,8 @@ print(
 pairs <- combn(vars, 2, simplify = FALSE)
 
 hz_results <- do.call(rbind, lapply(pairs, function(p) {
-  data_mvn <- components[, p]
-  test <- HZ.test(data_mvn)
+  dimensions <- components[, p]
+  test <- HZ.test(dimensions)
 
   data.frame(
     Var1 = p[1],
@@ -197,7 +188,7 @@ print(
     caption = "Henze--Zirkler multivariate normality tests for pairs of HDI components",
     label = "tab:hz_test"
   ),
-  file = "output/03_analysis_dim/hz_normality.tex",
+  file = file.path(out_dir, "hz_normality.tex"),
   include.rownames = FALSE,
   booktabs = TRUE
 )
@@ -218,22 +209,19 @@ mardia_p[mardia_p == "<0.001"] <- "0.001"
 mardia_p <- as.numeric(mardia_p)
 
 if (any(mardia_p < 0.01)) {
-  corr <- cor(data, method = "spearman")
+  corr <- cor(dimensions, method = "spearman")
   message("Data is non-normal. Spearman correlation was calculated.")
 } else {
-  corr <- cor(data, method = "pearson")
+  corr <- cor(dimensions, method = "pearson")
   message("Data is normal. Pearson correlation was calculated.")
 }
 
 # ============================================================
-# MANUSCRIPT OUTPUT: TABLE 6 (CORRELATION MATRIX)
+# MANUSCRIPT OUTPUT: TABLE 7
 # ============================================================
 # The selected correlation matrix is used by
 # 04_composite_indices.R to construct the correlation-based
 # Choquet specification.
-#
-# Generated file:
-#   output/03_analysis_dim/spearman_correlations.tex
 # ============================================================
 
 print(
@@ -243,6 +231,8 @@ print(
     digits = 4,
     label = "tab:corr_choquet"
   ),
-  file = "output/03_analysis_dim/spearman_correlations.tex",
+  file = file.path(out_dir, "spearman_correlations.tex"),
   booktabs = TRUE
 )
+
+message("Analysis of dimensions completed successfully.")

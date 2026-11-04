@@ -1,0 +1,3 @@
+"Method","Countries_compared","Kendall_tau","Changed_rankings","Percentage_changed","Mean_absolute_rank_movement","Median_absolute_rank_movement","Maximum_absolute_rank_movement"
+"ch_const_mid",193,0.967940414507772,167,86.5284974093264,2.47668393782383,2,11
+"ch_corr_mid",193,0.967940414507772,171,88.60103626943,2.51813471502591,2,13

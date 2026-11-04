@@ -5,8 +5,6 @@
 #   Construct the composite development indices evaluated in
 #   the manuscript.
 #
-# Input:
-#   output/02_normalization/data_normalized.rds
 #
 # Composite indices:
 #   AM       - arithmetic mean of the three dimensions
@@ -20,29 +18,20 @@
 # the complete pipeline is run through 00_run_all.R.
 #
 # Outputs:
-#   output/04_composite_indices/data_indices_cal.rds
 #   output/04_composite_indices/data_indices_cal.csv
-#   output/04_composite_indices/data_indices.rds
-#   output/04_composite_indices/data_indices.csv
-#
-# These files are used by 05_comparisons.R.
+#   output/04_composite_indices/orness.csv
+#   output/04_composite_indices/indices.csv
 # ============================================================
 
 # ------------------------------------------------------------
-# LOAD NORMALIZED COMPONENTS
+# LOAD NORMALIZED COMPONENTS AND DIRECTORY TO SAVE RESULTS
 # ------------------------------------------------------------
-
-data <- readRDS("output/02_normalization/data_normalized.rds") |>
-  as.data.frame()
-
-data <- data %>%
-  mutate(across(c(lei, eysi, mysi, ei, gnii), as.numeric))
+out_dir <- "output/04_composite_indices"
 
 # The composite indices use the three HDI dimensions:
 # health (lei), education (ei), and income (gnii).
-X <- data %>% select(lei, ei, gnii) %>% as.matrix()
-n <- ncol(X)
-
+dimensions <- dimensions %>% as.matrix()
+n <-ncol(dimensions)
 # Equal importance is assigned to the three dimensions.
 w <- rep(1 / n, n)
 
@@ -50,14 +39,17 @@ w <- rep(1 / n, n)
 # ARITHMETIC MEAN INDEX
 # ------------------------------------------------------------
 
-data$am <- X %*% w
-
+data$am <- dimensions %*% w
+orn_am <- 0.5
+k_am <- 0
 # ------------------------------------------------------------
 # GEOMETRIC MEAN INDEX
 # ------------------------------------------------------------
 
-data$gm <- exp(rowSums(log(X) * w))
+data$gm <- exp(rowSums(log(dimensions) * w))
 
+orn_gm <- -1 / (n - 1) +
+  (n + 1) / (n - 1) * prod(1 / (1 + w))
 # ============================================================
 # CHOQUET INTEGRAL
 # ============================================================
@@ -84,7 +76,8 @@ if (!exists("corr")) {
 umco <- 1 - corr
 shap <- w
 
-k <- 2 * min(shap) / (n - 1)
+k_const <- 2 * min(shap) / (n - 1)
+k <- k_const
 I <- k * matrix(1, n, n)
 diag(I) <- 0
 
@@ -103,6 +96,11 @@ cap1 <- Mobius.capacity(
   n
 )
 
+orn_ch_const <- (1 / (n - 1)) * (
+  ((n - 1) / 2) * sum(mob1) +
+    ((n - 2) / 3) * sum(mob2)
+)
+
 # ============================================================
 # MANUSCRIPT ANALYSIS: CHOQUET SPECIFICATION 1
 # ============================================================
@@ -110,7 +108,7 @@ cap1 <- Mobius.capacity(
 # The resulting index is stored as 'ch_const'.
 # ============================================================
 
-data$ch_const <- apply(X, 1, function(x) {
+data$ch_const <- apply(dimensions, 1, function(x) {
   Choquet.integral(cap1, x)
 })
 
@@ -126,7 +124,8 @@ for (i in 1:n) {
   k_vec <- c(k_vec, 2 * shap[i] / sum(umco[i, ]))
 }
 
-k <- min(k_vec)
+k_corr <- min(k_vec)
+k<- k_corr
 I <- k * umco
 
 mob1 <- shap - rowSums(I) / 2
@@ -143,7 +142,10 @@ cap2 <- Mobius.capacity(
   n,
   n
 )
-
+orn_ch_corr <- (1 / (n - 1)) * (
+  ((n - 1) / 2) * sum(mob1) +
+    ((n - 2) / 3) * sum(mob2)
+)
 # ============================================================
 # MANUSCRIPT ANALYSIS: CHOQUET SPECIFICATION 2
 # ============================================================
@@ -151,7 +153,7 @@ cap2 <- Mobius.capacity(
 # The resulting index is stored as 'ch_corr'.
 # ============================================================
 
-data$ch_corr <- apply(X, 1, function(x) {
+data$ch_corr <- apply(dimensions, 1, function(x) {
   Choquet.integral(cap2, x)
 })
 
@@ -160,33 +162,57 @@ data$ch_corr <- apply(X, 1, function(x) {
 # ------------------------------------------------------------
 # This file retains the normalized components and all composite
 # indices for transparency and further inspection.
-# ------------------------------------------------------------
-
-saveRDS(
-  data,
-  "output/04_composite_indices/data_indices_cal.rds"
-)
+# -----------------------------------------------------------
 write.csv(
   data,
-  "output/04_composite_indices/data_indices_cal.csv",
+  file.path(out_dir, "data_indices_cal.csv"),
   row.names = FALSE
 )
+# ============================================================
+# MANUSCRIPT OUTPUT: APPENDIX TABLE 11, ROWS 2, 4, 5, 6, 7 AND 9
+# ============================================================
+# Save orness table
+# -----------------------------------------------------------
+orness <- data.frame(
+  Indices = c(
+    "am",
+    "gm",
+    "choquet_const",
+    "choquet_corr"
+  ),
+  Orness = c(
+    orn_am,
+    orn_gm,
+    orn_ch_const,
+    orn_ch_corr
+  ),
+  k = c(
+    k_am,
+    NA_real_,
+    k_const,
+    k_corr
+  )
+)
 
+orness$Orness <- round(orness$Orness, 6)
+orness$k <- round(orness$k, 6)
+
+write.csv(
+  orness,
+  file.path(out_dir, "orness.csv"),
+  row.names = FALSE
+)
 # ------------------------------------------------------------
 # PREPARE DATASET FOR RANKING COMPARISONS
 # ------------------------------------------------------------
-# Only the variables required by 05_comparisons.R are retained.
+# Only the composite indices required by 05_comparisons.R are retained.
 # ------------------------------------------------------------
 
-data <- data[, -c(2:6)]
+indices <- data[, -c(1, 3:11)]
 
-saveRDS(
-  data,
-  "output/04_composite_indices/data_indices.rds"
-)
 write.csv(
-  data,
-  "output/04_composite_indices/data_indices.csv",
+  indices,
+  file.path(out_dir, "indices.csv"),
   row.names = FALSE
 )
 
